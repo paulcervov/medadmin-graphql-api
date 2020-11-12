@@ -9,6 +9,7 @@ exports.seed = function (knex) {
             const users = Array(50)
                 .fill()
                 .map(() => {
+
                 return {
                     first_name: faker.name.firstName(),
                     patronymic: faker.name.lastName(),
