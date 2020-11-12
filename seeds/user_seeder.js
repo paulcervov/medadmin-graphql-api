@@ -10,7 +10,9 @@ exports.seed = function (knex) {
                 .fill()
                 .map(() => {
                 return {
-                    name: faker.name.findName(),
+                    first_name: faker.name.firstName(),
+                    patronymic: faker.name.lastName(),
+                    last_name: faker.name.lastName(),
                     created_at: knex.fn.now(),
                     updated_at: knex.fn.now()
                 }
