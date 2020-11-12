@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "faker": "^5.1.0",
     "knex": "^0.21.12",
     "sqlite3": "^5.0.0"
   }
