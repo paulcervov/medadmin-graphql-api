@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.increments();
 
         table.string('first_name').notNullable();
-        table.string('patronymic').notNullable();
+        table.string('middle_name').notNullable();
         table.string('last_name').notNullable();
 
         table.string('email').notNullable().unique();

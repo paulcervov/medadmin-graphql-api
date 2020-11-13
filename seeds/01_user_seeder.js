@@ -1,4 +1,4 @@
-const faker = require('faker');
+const faker = require('./../faker');
 
 exports.seed = async (knex) => {
 
@@ -8,10 +8,12 @@ exports.seed = async (knex) => {
         .fill()
         .map(() => {
 
+            const gender = faker.random.number(1);
+
             return {
-                first_name: faker.name.firstName(),
-                patronymic: faker.name.lastName(),
-                last_name: faker.name.lastName(),
+                first_name: faker.name.firstName(gender),
+                middle_name: faker.name.middleName(gender),
+                last_name: faker.name.lastName(gender),
 
                 email: faker.unique(faker.internet.email),
                 password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password,
