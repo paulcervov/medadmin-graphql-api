@@ -1,20 +1,43 @@
-const faker = require('faker');
-const {capitalize} = require('lodash');
 
 exports.seed = async (knex) => {
 
     await knex('directions').del();
 
-    const values = Array(10)
-        .fill()
-        .map(() => {
+    const directions = [
+        "Акушерство и гинекология",
+        "Терапия",
+        "Неврология",
+        "Эндокринология",
+        "Дерматовенерология",
+        "Хирургия",
+        "Урология и андрология",
+        "Маммология",
+        "Проктология",
+        "Иммунология",
+        "Оториноларингология",
+        "Офтальмология",
+        "Ультразвуковая диагностика",
+        "Мануальная терапия",
+        "Рефлексотерапия",
+        "Стоматология",
+        "Компьютерная томография",
+        "Гастроэнтерология",
+        "Денситометрия",
+        "Косметология",
+        "Трихология",
+        "Психология",
+        "Гистероскопия и гистерорезектоскопия",
+        "Логопедия"
+    ];
 
-            return {
-                name: capitalize(faker.unique(faker.lorem.word)),
-                created_at: knex.fn.now(),
-                updated_at: knex.fn.now()
-            }
-        });
+    const values = directions.map((direction) => {
+
+        return {
+            name: direction,
+            created_at: knex.fn.now(),
+            updated_at: knex.fn.now()
+        }
+    });
 
     return knex('directions').insert(values);
 };
