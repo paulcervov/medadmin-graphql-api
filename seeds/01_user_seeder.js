@@ -1,25 +1,21 @@
 const faker = require('faker');
 
-exports.seed = function (knex) {
+exports.seed = async (knex) => {
 
-    return knex('users')
-        .del()
-        .then(function () {
+    await knex('users').del();
 
-            const users = Array(50)
-                .fill()
-                .map(() => {
+    const values = Array(50)
+        .fill()
+        .map(() => {
 
-                return {
-                    first_name: faker.name.firstName(),
-                    patronymic: faker.name.lastName(),
-                    last_name: faker.name.lastName(),
-                    created_at: knex.fn.now(),
-                    updated_at: knex.fn.now()
-                }
-            });
-
-            return knex('users')
-                .insert(users);
+            return {
+                first_name: faker.name.firstName(),
+                patronymic: faker.name.lastName(),
+                last_name: faker.name.lastName(),
+                created_at: knex.fn.now(),
+                updated_at: knex.fn.now()
+            }
         });
+
+    return knex('users').insert(values);
 };

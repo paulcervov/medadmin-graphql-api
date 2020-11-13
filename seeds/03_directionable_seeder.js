@@ -1,4 +1,4 @@
-exports.seed = async function (knex) {
+exports.seed = async (knex) => {
 
     await knex('directionables').del();
 
@@ -10,7 +10,7 @@ exports.seed = async function (knex) {
 
         const users = await knex.select('id').from('users').orderByRaw('RANDOM()').limit(userCount / 5);
 
-        return knex('directionables').insert(users.map((user) => {
+        const values = users.map((user) => {
 
             return {
                 direction_id: direction.id,
@@ -19,7 +19,9 @@ exports.seed = async function (knex) {
                 created_at: knex.fn.now(),
                 updated_at: knex.fn.now(),
             };
-        }));
+        })
+
+        return knex('directionables').insert(values);
     });
 
     return Promise.all(promises);
