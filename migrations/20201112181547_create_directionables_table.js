@@ -1,5 +1,6 @@
 
 exports.up = function(knex) {
+
     return knex.schema.createTable('directionables', function (table) {
         table.increments();
 
@@ -21,5 +22,6 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
+
     return knex.schema.dropTableIfExists('directionables');
 };
