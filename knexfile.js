@@ -5,8 +5,14 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: () => ({
-      filename: process.env.DB_DATABASE || './database/database.sqlite'
+      filename: process.env.DB_DATABASE || './database.sqlite'
     }),
+    migrations: {
+      directory: './src/migrations',
+    },
+    seeds: {
+      directory: './src/seeds',
+    },
     useNullAsDefault: true
   },
 
@@ -20,6 +26,12 @@ module.exports = {
     pool: {
       min: 2,
       max: 10
+    },
+    migrations: {
+      directory: './src/migrations',
+    },
+    seeds: {
+      directory: './src/seeds',
     },
   }
 
