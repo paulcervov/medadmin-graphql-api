@@ -9,9 +9,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "faker": "^5.1.0",
+    "faker": "https://github.com/Marak/faker.js.git#master",
     "knex": "^0.21.12",
-    "lodash": "^4.17.20",
     "sqlite3": "^5.0.0"
   }
 }
