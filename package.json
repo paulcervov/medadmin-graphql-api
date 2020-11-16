@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "faker": "https://github.com/Marak/faker.js.git#master",
     "graphql": "^15.4.0",
+    "graphql-fields": "^2.0.3",
     "knex": "^0.21.12",
     "sqlite3": "^5.0.0"
   }
