@@ -1,8 +1,6 @@
-const knex = require('./knex');
-
 module.exports = {
     Query: {
-        findEmployers: async (_, {searchQuery, orderBy: {column, direction}}) => {
+        findEmployers: async (_, {searchQuery, orderBy: {column, direction}}, {knex}) => {
 
             const employers = await knex('users')
                 .where((builder) => {
@@ -17,7 +15,7 @@ module.exports = {
 
             return employers;
         },
-        getEmployer: async (_, {id}) => {
+        getEmployer: async (_, {id}, {knex}) => {
 
             const employer =  await knex('users').where({id}).first();
 
