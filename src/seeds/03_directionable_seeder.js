@@ -8,7 +8,7 @@ exports.seed = async (knex) => {
 
     const promises = directions.map(async (direction) => {
 
-        const users = await knex.select('id').from('users').orderByRaw('RANDOM()').limit(userCount / 5);
+        const users = await knex.select('id').from('users').orderByRaw('RANDOM()').limit(userCount / 20);
 
         const values = users.map((user) => {
 

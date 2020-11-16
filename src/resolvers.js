@@ -1,8 +1,12 @@
+const graphqlFields = require('graphql-fields');
+
 module.exports = {
     Query: {
-        findEmployers: async (_, {searchQuery, orderBy: {column, direction}}, {knex}) => {
+        findUsers: async (_, {searchQuery, orderBy: {column, direction}}, {knex}, info) => {
 
-            const employers = await knex('users')
+            const fields = graphqlFields(info);
+
+            const users = await knex('users')
                 .where((builder) => {
                     if (searchQuery) {
                         builder
@@ -13,13 +17,53 @@ module.exports = {
                 })
                 .orderBy(column, direction);
 
-            return employers;
+            if('directions' in fields) {
+
+                const userIds = users.map(user => user.id);
+
+                const directionables = await knex('directionables')
+                    .where('directionable_type', 'users')
+                    .whereIn('directionable_id', userIds);
+
+                if(!directionables) {
+                    return users;
+                }
+
+                const directionIds = directionables.map(directionable => directionable.direction_id);
+
+                const directions = await knex('directions').whereIn('id', directionIds);
+
+                if(!directions) {
+                    return users;
+                }
+
+                users.forEach((user) => {
+
+                    const userDirectionables = directionables.filter(directionable => directionable.directionable_id == user.id);
+
+                    if(!userDirectionables) {
+                        return;
+                    }
+
+                    const userDirectionIds = userDirectionables.map(directionable => directionable.direction_id);
+
+                    const userDirections = directions.filter(direction => userDirectionIds.includes(direction.id))
+
+                    if(!userDirections) {
+                        return;
+                    }
+
+                    user.directions = userDirections;
+                });
+            }
+
+            return users;
         },
-        getEmployer: async (_, {id}, {knex}) => {
+        getUser: async (_, {id}, {knex}) => {
 
-            const employer =  await knex('users').where({id}).first();
+            const user =  await knex('users').where({id}).first();
 
-            return employer;
+            return user;
         },
     },
 };

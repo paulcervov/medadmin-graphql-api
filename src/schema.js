@@ -3,10 +3,10 @@ const {gql} = require('apollo-server');
 const typeDefs = gql`
 
     type Query {
-        "Geting list of employers"
-        findEmployers(searchQuery: String, orderBy: OrderByInput): [User!]!
-        "Geting one employer by id"
-        getEmployer(id: ID!): User
+        "Geting list of users"
+        findUsers(searchQuery: String, orderBy: OrderByInput): [User!]!
+        "Geting one user by id"
+        getUser(id: ID!): User
     }
 
     type User {
@@ -27,7 +27,7 @@ const typeDefs = gql`
         name: String!
     }
 
-    # Order by clause for the \`orderBy\` argument on the query \`findEmployers\`.
+    # Order by clause for the \`orderBy\` argument on the query \`findUsers\`.
     input OrderByInput {
         # The column that is used for ordering.
         column: String!
