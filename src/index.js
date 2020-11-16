@@ -1,10 +1,12 @@
-const knex = require('./knex')
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
 
-knex('users')
-    .then((rows) => {
-    console.log(rows);
-}).catch((err) => {
-    console.error(err);
-}).finally(async () => {
-    knex.destroy(() => {});
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+});
+
+server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
 });
