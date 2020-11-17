@@ -28,6 +28,7 @@ const typeDefs = gql`
     }
 
     type UserPaginator {
+        currentPage: Int!
         hasMorePages: Boolean!
         data: [User]!
     }

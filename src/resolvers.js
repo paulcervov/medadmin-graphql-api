@@ -10,7 +10,7 @@ module.exports = {
 
             const offset = (page - 1) * perPage
 
-            const usersQuery = knex('users')
+            const users = await knex('users')
                 .where((builder) => {
                     if (searchQuery) {
                         builder
@@ -18,21 +18,18 @@ module.exports = {
                             .orWhere('first_name', 'like', `%${searchQuery}%`)
                             .orWhere('middle_name', 'like', `%${searchQuery}%`);
                     }
-                });
-
-            const users = await usersQuery
-                .clone()
-                .limit(perPage)
+                })
                 .offset(offset)
+                .limit(perPage + 1)
                 .orderBy(column, direction);
 
-            const nextPage = await usersQuery
-                .clone()
-                .limit(1)
-                .offset(offset + perPage);
+                const hasMorePages = users.length > perPage;
+
+                users.splice(perPage);
 
             const userPaginator = {
-                hasMorePages: nextPage.length > 0,
+                currentPage: page,
+                hasMorePages,
                 data: users,
             };
 
