@@ -4,7 +4,7 @@ const typeDefs = gql`
 
     type Query {
         "Geting list of users"
-        findUsers(searchQuery: String, orderBy: OrderByInput): [User!]!
+        findUsers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput): UserPaginator!
         "Geting one user by id"
         getUser(id: ID!): User
     }
@@ -25,6 +25,11 @@ const typeDefs = gql`
     type Direction {
         id: ID!
         name: String!
+    }
+
+    type UserPaginator {
+        hasMorePages: Boolean!
+        data: [User]!
     }
 
     # Order by clause for the \`orderBy\` argument on the query \`findUsers\`.
