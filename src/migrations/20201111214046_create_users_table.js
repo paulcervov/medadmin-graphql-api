@@ -13,6 +13,14 @@ exports.up = function(knex) {
 
         table.string('phone').notNullable().unique();
 
+        table.integer('gender_id').notNullable();
+        table.date('date_of_birth').notNullable();
+        table.string('comment');
+
+        table.json('passport');
+        table.json('registration_address');
+        table.json('physical_address');
+
         table.integer('role_id').notNullable();
         table.integer('percentage').notNullable();
 

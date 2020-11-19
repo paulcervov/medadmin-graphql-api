@@ -1,3 +1,4 @@
+const faker = require('../faker');
 
 exports.seed = async (knex) => {
 
@@ -34,8 +35,9 @@ exports.seed = async (knex) => {
 
         return {
             name: direction,
-            created_at: knex.fn.now(),
-            updated_at: knex.fn.now()
+
+            created_at: faker.date.past(),
+            updated_at: faker.date.recent()
         }
     });
 

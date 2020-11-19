@@ -6,7 +6,6 @@ exports.up = function(knex) {
 
         table.integer('direction_id')
             .notNullable()
-            .unsigned()
             .references('id')
             .inTable('directions')
             .onDelete('cascade');
