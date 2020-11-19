@@ -12,7 +12,7 @@ In the project directory, you can run:
 
 ### `npm fresh`
 
-Rolls back and reruns all migrations, then runs all seeders.
+Rollbacks and reruns all migrations, then runs all seeders.
 
 ### `npm start`
 

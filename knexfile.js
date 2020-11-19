@@ -4,9 +4,9 @@ module.exports = {
 
   development: {
     client: 'sqlite3',
-    connection: () => ({
-      filename: process.env.DB_DATABASE || './database.sqlite'
-    }),
+    connection: {
+      filename: process.env.DB_DATABASE
+    },
     migrations: {
       directory: './src/migrations',
     },
@@ -18,11 +18,11 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: () => ({
+    connection: {
       database: process.env.DB_DATABASE,
       user:     process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD
-    }),
+    },
     pool: {
       min: 2,
       max: 10
