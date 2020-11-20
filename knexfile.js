@@ -7,6 +7,11 @@ module.exports = {
     connection: {
       filename: process.env.DB_DATABASE
     },
+    pool: {
+      afterCreate: (conn, cb) => {
+        conn.run('PRAGMA foreign_keys = ON', cb);
+      }
+    },
     migrations: {
       directory: './src/migrations',
     },
