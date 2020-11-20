@@ -1,4 +1,3 @@
-const faker = require('../faker');
 
 exports.seed = async (knex) => {
 
@@ -16,12 +15,8 @@ exports.seed = async (knex) => {
 
             return {
                 direction_id: direction.id,
-
                 directionable_id: user.id,
-                directionable_type: 'users',
-
-                created_at: faker.date.past(),
-                updated_at: faker.date.recent(),
+                directionable_type: 'User',
             };
         })
 

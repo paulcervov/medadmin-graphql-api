@@ -24,7 +24,7 @@ exports.up = function(knex) {
         table.integer('role_id').notNullable();
         table.integer('percentage').notNullable();
 
-        table.timestamps();
+        table.timestamps(true, true);
     });
 };
 

@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
 
-    return knex.schema.createTable('directions', function (table) {
+    return knex.schema.createTable('services', function (table) {
         table.increments();
 
         table.string('name').notNullable().unique();
@@ -11,6 +11,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-
-    return knex.schema.dropTableIfExists('directions');
+    return knex.schema.dropTableIfExists('services');
 };

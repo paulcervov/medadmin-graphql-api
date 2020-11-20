@@ -16,7 +16,7 @@ exports.up = function(knex) {
         table.unique(['direction_id', 'directionable_type', 'directionable_id']);
         table.index(['directionable_type', 'directionable_id']);
 
-        table.timestamps();
+        table.timestamps(true, true);
     });
 };
 
