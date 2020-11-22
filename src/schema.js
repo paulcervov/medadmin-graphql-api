@@ -3,23 +3,26 @@ const {gql} = require('apollo-server');
 const typeDefs = gql`
 
     type Query {
-        "Geting list of users"
-        findUsers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput): UserPaginator!
-        "Geting one user by id"
-        getUser(id: ID!): User
+        "Geting list of employers"
+        findEmployers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput): EmployerPaginator!
+        "Geting one employer by id"
+        getEmployer(id: ID!): Employer
     }
 
-    type User {
+    type Employer {
         id: ID!
         last_name: String!
         first_name: String!
         middle_name: String!
         email: String!
         phone: String!
+        gender_id: Int!,
+        date_of_birth: String!
         role_id: Int!
         percentage: Int!
         directions: [Direction!]!
         created_at: String!
+        updated_at: String!
     }
 
     type Direction {
@@ -27,13 +30,13 @@ const typeDefs = gql`
         name: String!
     }
 
-    type UserPaginator {
+    type EmployerPaginator {
         currentPage: Int!
         hasMorePages: Boolean!
-        data: [User]!
+        data: [Employer]!
     }
 
-    # Order by clause for the \`orderBy\` argument on the query \`findUsers\`.
+    # Order by clause for the \`orderBy\` argument on the query \`findEmployers\`.
     input OrderByInput {
         # The column that is used for ordering.
         column: String!
