@@ -14,9 +14,9 @@ exports.seed = async (knex) => {
         const values = users.map((user) => {
 
             return {
-                direction_id: direction.id,
-                directionable_id: user.id,
-                directionable_type: 'User',
+                directionId: direction.id,
+                directionableId: user.id,
+                directionableType: 'User',
             };
         })
 

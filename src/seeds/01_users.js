@@ -17,8 +17,8 @@ exports.seed = async (knex) => {
                     ? {
                         series: faker.helpers.replaceSymbols('####'),
                         number: faker.helpers.replaceSymbols('######'),
-                        date_of_issue: faker.date.between(dateOfBirth, '2015').toISOString().split('T').shift(),
-                        issued_by: faker.lorem.sentence,
+                        dateOfIssue: faker.date.between(dateOfBirth, '2015').toISOString().split('T').shift(),
+                        issuedBy: faker.lorem.sentence,
                     } : null,
 
                 registrationAddress = faker.random.boolean()
@@ -28,7 +28,7 @@ exports.seed = async (knex) => {
                         house: faker.random.number({min: 1, max: 150}),
                         building: faker.random.boolean() ? faker.random.number({min: 1, max: 10}) : null,
                         apartment: faker.random.boolean() ? faker.random.number({min: 1, max: 100}) : null,
-                        lives_here: faker.random.boolean()
+                        livesHere: faker.random.boolean()
                     }
                     : null,
 
@@ -45,32 +45,32 @@ exports.seed = async (knex) => {
                         : null;
 
             return {
-                first_name: faker.name.firstName(genderId),
-                middle_name: faker.name.middleName(genderId),
-                last_name: faker.name.lastName(genderId),
+                firstName: faker.name.firstName(genderId),
+                middleName: faker.name.middleName(genderId),
+                lastName: faker.name.lastName(genderId),
 
                 email: faker.unique(faker.internet.email),
                 password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password,
 
                 phone: faker.unique(faker.phone.phoneNumber),
 
-                gender_id: genderId,
-                date_of_birth: dateOfBirth,
+                genderId: genderId,
+                dateOfBirth: dateOfBirth,
                 comment: faker.random.boolean()
                     ? faker.lorem.sentence()
                     : null,
 
                 passport: JSON.stringify(passport),
-                registration_address: JSON.stringify(registrationAddress),
-                physical_address: JSON.stringify(physicalAddress),
+                registrationAddress: JSON.stringify(registrationAddress),
+                physicalAddress: JSON.stringify(physicalAddress),
 
-                role_id: roleId,
+                roleId: roleId,
                 percentage: roleId === 3
                     ? faker.random.arrayElement([0, 5, 10, 15, 20, 25])
                     : 0,
 
-                created_at: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
-                updated_at: faker.date.recent().toISOString().replace('T', ' ').slice(0, -5),
+                createdAt: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
+                updatedAt: faker.date.recent().toISOString().replace('T', ' ').slice(0, -5),
             }
         });
 

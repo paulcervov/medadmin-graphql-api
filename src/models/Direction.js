@@ -26,17 +26,17 @@ class Direction extends Model {
                 relation: Model.ManyToManyRelation,
                 modelClass: path.join(__dirname, 'User'),
                 filter: {
-                    directionable_type: 'User',
+                    directionableType: 'User',
                 },
                 beforeInsert(model) {
-                    model.directionable_type = 'User'
+                    model.directionableType = 'User'
                 },
                 join: {
                     from: 'directions.id',
                     through: {
-                        from: 'directionables.direction_id',
-                        to: 'directionables.directionable_id',
-                        extra: ['directionable_type'],
+                        from: 'directionables.directionId',
+                        to: 'directionables.directionableId',
+                        extra: ['directionableType'],
                     },
                     to: 'users.id'
                 }

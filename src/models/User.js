@@ -11,31 +11,31 @@ class User extends Model {
         return {
             type: 'object',
             required: [
-                'first_name',
-                'middle_name',
-                'last_name',
+                'firstName',
+                'middleName',
+                'lastName',
                 'email',
                 'password',
                 'phone',
-                'gender_id',
-                'date_of_birth',
+                'genderId',
+                'dateOfBirth',
                 'comment',
                 'passport',
-                'registration_address',
-                'physical_address',
-                'role_id',
+                'registrationAddress',
+                'physicalAddress',
+                'roleId',
                 'percentage',
             ],
 
             properties: {
                 id: {type: 'integer'},
-                first_name: {type: 'string', minLength: 1, maxLength: 255},
-                middle_name: {type: 'string', minLength: 1, maxLength: 255},
-                last_name: {type: 'string', minLength: 1, maxLength: 255},
+                firstName: {type: 'string', minLength: 1, maxLength: 255},
+                middleName: {type: 'string', minLength: 1, maxLength: 255},
+                lastName: {type: 'string', minLength: 1, maxLength: 255},
                 email: {type: 'string', minLength: 1, maxLength: 255},
                 password: {type: 'string', minLength: 1, maxLength: 255},
 
-                registration_address: {
+                registrationAddress: {
                     type: 'object',
                     properties: {
                         city: {type: 'string'},
@@ -43,11 +43,11 @@ class User extends Model {
                         house: {type: 'string'},
                         building: {type: 'string'},
                         apartment: {type: 'string'},
-                        lives_here: {type: 'boolean'},
+                        livesHere: {type: 'boolean'},
                     }
                 },
 
-                physical_address: {
+                physicalAddress: {
                     type: 'object',
                     properties: {
                         city: {type: 'string'},
@@ -58,7 +58,7 @@ class User extends Model {
                     }
                 },
 
-                role_id: {type: 'number', minLength: 1, maxLength: 5},
+                roleId: {type: 'number', minLength: 1, maxLength: 5},
                 percentage: {type: ['null', 'number'], minLength: 1, maxLength: 100},
 
             }
@@ -75,8 +75,8 @@ class User extends Model {
                 join: {
                     from: 'users.id',
                     through: {
-                        from: 'service_user.user_id',
-                        to: 'service_user.service_id',
+                        from: 'serviceUser.userId',
+                        to: 'serviceUser.serviceId',
                     },
                     to: 'services.id'
                 }
@@ -86,17 +86,17 @@ class User extends Model {
                 relation: Model.ManyToManyRelation,
                 modelClass: path.join(__dirname, 'Direction'),
                 filter: {
-                    directionable_type: 'User',
+                    directionableType: 'User',
                 },
                 beforeInsert(model) {
-                    model.directionable_type = 'User'
+                    model.directionableType = 'User'
                 },
                 join: {
                     from: 'users.id',
                     through: {
-                        from: 'directionables.directionable_id',
-                        to: 'directionables.direction_id',
-                        extra: ['directionable_type'],
+                        from: 'directionables.directionableId',
+                        to: 'directionables.directionId',
+                        extra: ['directionableType'],
                     },
                     to: 'directions.id'
                 }

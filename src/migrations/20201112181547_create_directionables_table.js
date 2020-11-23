@@ -4,19 +4,20 @@ exports.up = function(knex) {
     return knex.schema.createTable('directionables', function (table) {
         table.increments();
 
-        table.integer('direction_id')
+        table.integer('directionId')
             .notNullable()
             .references('id')
             .inTable('directions')
             .onDelete('cascade');
 
-        table.string('directionable_type').notNullable();
-        table.integer('directionable_id').notNullable().unsigned();
+        table.string('directionableType').notNullable();
+        table.integer('directionableId').notNullable().unsigned();
 
-        table.unique(['direction_id', 'directionable_type', 'directionable_id']);
-        table.index(['directionable_type', 'directionable_id']);
+        table.unique(['directionId', 'directionableType', 'directionableId']);
+        table.index(['directionableType', 'directionableId']);
 
-        table.timestamps(true, true);
+        table.timestamp('createdAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
+        table.timestamp('updatedAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
     });
 };
 

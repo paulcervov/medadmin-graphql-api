@@ -1,7 +1,7 @@
 
 exports.seed = async (knex) => {
 
-    await knex('service_user').del();
+    await knex('serviceUser').del();
 
     const services = await knex('services').orderByRaw('RANDOM()');
 
@@ -14,12 +14,12 @@ exports.seed = async (knex) => {
         const values = users.map((user) => {
 
             return {
-                service_id: service.id,
-                user_id: user.id,
+                serviceId: service.id,
+                userId: user.id,
             };
         })
 
-        return knex('service_user').insert(values);
+        return knex('serviceUser').insert(values);
     });
 
     return Promise.all(promises);

@@ -11,18 +11,18 @@ const typeDefs = gql`
 
     type Employer {
         id: ID!
-        last_name: String!
-        first_name: String!
-        middle_name: String!
+        lastName: String!
+        firstName: String!
+        middleName: String!
         email: String!
         phone: String!
-        gender_id: Int!,
-        date_of_birth: String!
-        role_id: Int!
+        genderId: Int!,
+        dateOfBirth: String!
+        roleId: Int!
         percentage: Int!
         directions: [Direction!]!
-        created_at: String!
-        updated_at: String!
+        createdAt: String!
+        updatedAt: String!
     }
 
     type Direction {

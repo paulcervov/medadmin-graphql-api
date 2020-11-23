@@ -27,8 +27,8 @@ class Service extends Model {
                 join: {
                     from: 'services.id',
                     through: {
-                        from: 'service_user.service_id',
-                        to: 'service_user.user_id',
+                        from: 'serviceUser.serviceId',
+                        to: 'serviceUser.userId',
                     },
                     to: 'users.id'
                 }

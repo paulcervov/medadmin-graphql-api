@@ -1,27 +1,28 @@
 
 exports.up = function(knex) {
 
-    return knex.schema.createTable('service_user', function (table) {
+    return knex.schema.createTable('serviceUser', function (table) {
         table.increments();
 
-        table.integer('service_id')
+        table.integer('serviceId')
             .notNullable()
             .references('id')
             .inTable('services')
             .onDelete('cascade');
 
-        table.integer('user_id')
+        table.integer('userId')
             .notNullable()
             .references('id')
             .inTable('users')
             .onDelete('cascade');
 
-        table.unique(['service_id', 'user_id']);
+        table.unique(['serviceId', 'userId']);
 
-        table.timestamps(true, true);
+        table.timestamp('createdAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
+        table.timestamp('updatedAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
     });
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('service_user');
+    return knex.schema.dropTableIfExists('serviceUser');
 };

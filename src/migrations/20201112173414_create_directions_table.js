@@ -6,7 +6,8 @@ exports.up = function(knex) {
 
         table.string('name').notNullable().unique();
 
-        table.timestamps(true, true);
+        table.timestamp('createdAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
+        table.timestamp('updatedAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
     });
 };
 

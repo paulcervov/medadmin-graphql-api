@@ -10,8 +10,8 @@ exports.seed = async (knex) => {
         .map(() => {
             return {
                 name: capitalize(faker.lorem.words(faker.random.number({min: 2, max: 4}))),
-                created_at: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
-                updated_at: faker.date.recent().toISOString().replace('T', ' ').slice(0, -5)
+                createdAt: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
+                updatedAt: faker.date.recent().toISOString().replace('T', ' ').slice(0, -5)
             }
         })
 

@@ -3,7 +3,7 @@ const User = require('./models/User');
 
 module.exports = {
     Query: {
-        findEmployers: async (_, {page, perPage, searchQuery, orderBy: {column, direction}}, {knex}, info) => {
+        findEmployers: async (_, {page, perPage, searchQuery, orderBy: {column, direction}}, context, info) => {
 
             const fields = graphqlFields(info);
 
@@ -12,9 +12,9 @@ module.exports = {
 
             if (searchQuery) {
                 userQuery
-                    .where('last_name', 'like', `%${searchQuery}%`)
-                    .orWhere('first_name', 'like', `%${searchQuery}%`)
-                    .orWhere('middle_name', 'like', `%${searchQuery}%`);
+                    .where('lastName', 'like', `%${searchQuery}%`)
+                    .orWhere('firstName', 'like', `%${searchQuery}%`)
+                    .orWhere('middleName', 'like', `%${searchQuery}%`);
             }
 
             if('directions' in fields.data) {
@@ -30,7 +30,7 @@ module.exports = {
             };
 
         },
-        getEmployer: async (_, {id}, {knex}, info) => {
+        getEmployer: async (_, {id}, context, info) => {
 
             const fields = graphqlFields(info);
 
