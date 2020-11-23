@@ -1,4 +1,5 @@
 const graphqlFields = require('graphql-fields');
+const User = require('./models/User');
 
 module.exports = {
     Query: {
@@ -6,101 +7,42 @@ module.exports = {
 
             const fields = graphqlFields(info);
 
-            page = page < 1 ? 1 : page;
-
-            const offset = (page - 1) * perPage
-
-            const employers = await knex('users')
-                .where((builder) => {
-                    if (searchQuery) {
-                        builder
-                            .where('last_name', 'like', `%${searchQuery}%`)
-                            .orWhere('first_name', 'like', `%${searchQuery}%`)
-                            .orWhere('middle_name', 'like', `%${searchQuery}%`);
-                    }
-                })
-                .offset(offset)
-                .limit(perPage + 1)
+            const userQuery = User.query()
                 .orderBy(column, direction);
 
-                const hasMorePages = employers.length > perPage;
-
-                employers.splice(perPage);
-
-            const employerPaginator = {
-                currentPage: page,
-                hasMorePages,
-                data: employers,
-            };
-
-            if (!employers.length) return employerPaginator;
-
-            if ('directions' in fields.data) {
-
-                employers.forEach((employer) => {
-                    employer.directions = [];
-                })
-
-                await (async () => {
-
-                    const employerIds = employers.map(employer => employer.id);
-
-                    const directionables = await knex('directionables')
-                        .where('directionable_type', 'User')
-                        .whereIn('directionable_id', employerIds);
-
-                    if (!directionables.length) return;
-
-                    const directionIds = directionables.map(directionable => directionable.direction_id);
-
-                    const directions = await knex('directions').whereIn('id', directionIds);
-
-                    if (!directions.length) return;
-
-                    employers.forEach((employer) => {
-
-                        const employerDirectionables = directionables.filter(directionable => directionable.directionable_id == employer.id);
-
-                        if (!employerDirectionables.length) return;
-
-                        const employerDirectionIds = employerDirectionables.map(directionable => directionable.direction_id);
-
-                        const employerDirections = directions.filter(direction => employerDirectionIds.includes(direction.id))
-
-                        employer.directions = employerDirections;
-                    });
-                })();
+            if (searchQuery) {
+                userQuery
+                    .where('last_name', 'like', `%${searchQuery}%`)
+                    .orWhere('first_name', 'like', `%${searchQuery}%`)
+                    .orWhere('middle_name', 'like', `%${searchQuery}%`);
             }
 
-            return employerPaginator;
+            if('directions' in fields.data) {
+                userQuery.withGraphFetched('directions')
+            }
+
+            const {results, total} = await userQuery.page(page - 1, perPage);
+
+            return {
+                currentPage: page,
+                hasMorePages: (((page - 1) * perPage) + perPage) < total ,
+                data: results,
+            };
+
         },
         getEmployer: async (_, {id}, {knex}, info) => {
 
             const fields = graphqlFields(info);
 
-            const employer = await knex('users').where({id}).first();
+            const userQuery = User.query();
 
             if ('directions' in fields) {
-
-                employer.directions = [];
-
-                await (async () => {
-
-                    const employerDirectionables = await knex('directionables')
-                        .where('directionable_type', 'User')
-                        .where('directionable_id', employer.id);
-
-                    if (!employerDirectionables.length) return;
-
-                    const employerDirectionIds = employerDirectionables.map(directionable => directionable.direction_id);
-
-                    const employerDirections = await knex('directions').whereIn('id', employerDirectionIds);
-
-                    employer.directions = employerDirections;
-                })();
+                userQuery.withGraphFetched('directions');
             }
 
-            return employer;
+            const user = await userQuery.findById(id)
+
+            return user;
         },
     },
 };
