@@ -45,4 +45,22 @@ module.exports = {
             return user;
         },
     },
+
+    Mutation: {
+        deleteEmployer: async (_, {id}, context, info) => {
+
+            const now = new Date()
+                .toISOString()
+                .replace('T', ' ')
+                .slice(0, -5);
+
+            const userQuery = User.query();
+
+            const user = await userQuery.findById(id);
+
+            await userQuery.patch({deletedAt: now});
+
+            return user;
+        },
+    }
 };

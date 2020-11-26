@@ -36,6 +36,11 @@ const typeDefs = gql`
         hasMorePages: Boolean!
         data: [Employer]!
     }
+    
+    type Mutation {
+        "Delete an existing employer by id"
+        deleteEmployer(id: ID!): Employer
+    }
 
     # Order by clause for the \`orderBy\` argument on the query \`findEmployers\`.
     input OrderByInput {
