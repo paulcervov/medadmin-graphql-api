@@ -24,6 +24,7 @@ exports.up = function(knex) {
         table.integer('roleId').notNullable();
         table.integer('percentage').notNullable();
 
+        table.timestamp('deletedAt', {useTz: false});
         table.timestamp('createdAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updatedAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
     });
