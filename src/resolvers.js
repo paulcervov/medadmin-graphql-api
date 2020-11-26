@@ -30,7 +30,7 @@ module.exports = {
             };
 
         },
-        getEmployer: async (_, {id}, context, info) => {
+        getEmployer: (_, {id}, context, info) => {
 
             const fields = graphqlFields(info);
 
@@ -40,9 +40,7 @@ module.exports = {
                 userQuery.withGraphFetched('directions');
             }
 
-            const user = await userQuery.findById(id)
-
-            return user;
+            return userQuery.findById(id);
         },
     },
 };
