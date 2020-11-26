@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.19.0",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "faker": "https://github.com/Marak/faker.js.git#master",
     "graphql": "^15.4.0",
