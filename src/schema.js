@@ -21,6 +21,7 @@ const typeDefs = gql`
         roleId: Int!
         percentage: Int!
         directions: [Direction!]!
+        deletedAt: String
         createdAt: String!
         updatedAt: String!
     }
