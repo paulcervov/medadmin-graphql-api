@@ -69,6 +69,9 @@ exports.seed = async (knex) => {
                     ? faker.random.arrayElement([0, 5, 10, 15, 20, 25])
                     : 0,
 
+                deletedAt: faker.random.boolean
+                    ? faker.date.past().toISOString().replace('T', ' ').slice(0, -5)
+                    : null,
                 createdAt: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
                 updatedAt: faker.date.recent().toISOString().replace('T', ' ').slice(0, -5),
             }
