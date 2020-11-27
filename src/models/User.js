@@ -14,17 +14,10 @@ class User extends Model {
                 'firstName',
                 'middleName',
                 'lastName',
-                'email',
-                'password',
                 'phone',
                 'genderId',
                 'dateOfBirth',
-                'comment',
-                'passport',
-                'registrationAddress',
-                'physicalAddress',
                 'roleId',
-                'percentage',
             ],
 
             properties: {
@@ -32,23 +25,37 @@ class User extends Model {
                 firstName: {type: 'string', minLength: 1, maxLength: 255},
                 middleName: {type: 'string', minLength: 1, maxLength: 255},
                 lastName: {type: 'string', minLength: 1, maxLength: 255},
-                email: {type: 'string', minLength: 1, maxLength: 255},
+                phone: {type: 'string', minLength: 1, maxLength: 255},
                 password: {type: 'string', minLength: 1, maxLength: 255},
+                genderId: {type: 'number', minLength: 0, maxLength: 1},
+                dateOfBirth: {type: 'date'},
+                roleId: {type: 'number', minLength: 1, maxLength: 5},
 
+                percentage: {type: ['null', 'number'], minLength: 1, maxLength: 100},
+                comment: {type: ['null', 'string'], minLength: 1, maxLength: 255},
+                passport: {
+                    type: ['null', 'object'],
+                    // consider improvements
+                    properties: {
+                        series: {type: 'string', minLength: 4, maxLength: 4},
+                        number: {type: 'number', minLength: 111111, maxLength: 999999},
+                        dateOfIssue: {type: 'date'},
+                        issuedBy: {type: 'string', minLength: 1, maxLength: 255}
+                    }
+                },
                 registrationAddress: {
-                    type: 'object',
+                    type: ['null', 'object'],
                     properties: {
                         city: {type: 'string'},
                         street: {type: 'string'},
-                        house: {type: 'string'},
+                        house: {type: 'number'},
                         building: {type: 'string'},
                         apartment: {type: 'string'},
                         livesHere: {type: 'boolean'},
                     }
                 },
-
                 physicalAddress: {
-                    type: 'object',
+                    type: ['null', 'object'],
                     properties: {
                         city: {type: 'string'},
                         street: {type: 'string'},
@@ -57,10 +64,6 @@ class User extends Model {
                         apartment: {type: 'string'},
                     }
                 },
-
-                roleId: {type: 'number', minLength: 1, maxLength: 5},
-                percentage: {type: ['null', 'number'], minLength: 1, maxLength: 100},
-
             }
         }
     } // jsonSchema

@@ -12,7 +12,6 @@ exports.seed = async (knex) => {
                 genderId = faker.random.number(1),
                 dateOfBirth = faker.date.between('1950', '2010').toISOString().split('T').shift(),
                 roleId = faker.random.number({min: 1, max: 5}),
-
                 passport = faker.random.boolean()
                     ? {
                         series: faker.helpers.replaceSymbols('####'),
@@ -20,7 +19,6 @@ exports.seed = async (knex) => {
                         dateOfIssue: faker.date.between(dateOfBirth, '2015').toISOString().split('T').shift(),
                         issuedBy: faker.lorem.sentence,
                     } : null,
-
                 registrationAddress = faker.random.boolean()
                     ? {
                         city: faker.address.city(),
@@ -31,7 +29,6 @@ exports.seed = async (knex) => {
                         livesHere: faker.random.boolean()
                     }
                     : null,
-
                 physicalAddress = registrationAddress === null
                     ? null
                     : faker.random.boolean()
@@ -49,25 +46,22 @@ exports.seed = async (knex) => {
                 middleName: faker.name.middleName(genderId),
                 lastName: faker.name.lastName(genderId),
 
-                email: faker.unique(faker.internet.email),
-                password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password,
-
                 phone: faker.unique(faker.phone.phoneNumber),
+                password: '$2b$04$toP1b1dhS0dtpPicQsWjjeOwzl3pvPAfgHDHMT.FXUDy2fuCd4u86', // password,
 
                 genderId: genderId,
                 dateOfBirth: dateOfBirth,
-                comment: faker.random.boolean()
-                    ? faker.lorem.sentence()
-                    : null,
-
-                passport: JSON.stringify(passport),
-                registrationAddress: JSON.stringify(registrationAddress),
-                physicalAddress: JSON.stringify(physicalAddress),
-
                 roleId: roleId,
+
                 percentage: roleId === 3
                     ? faker.random.arrayElement([0, 5, 10, 15, 20, 25])
                     : 0,
+                comment: faker.random.boolean()
+                    ? faker.lorem.sentence()
+                    : null,
+                passport: JSON.stringify(passport),
+                registrationAddress: JSON.stringify(registrationAddress),
+                physicalAddress: JSON.stringify(physicalAddress),
 
                 deletedAt: faker.random.boolean
                     ? faker.date.past().toISOString().replace('T', ' ').slice(0, -5)
