@@ -1,5 +1,6 @@
 const graphqlFields = require('graphql-fields');
 const User = require('./models/User');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     Query: {
@@ -17,7 +18,7 @@ module.exports = {
                     .orWhere('middleName', 'like', `%${searchQuery}%`);
             }
 
-            if('directions' in fields.data) {
+            if ('directions' in fields.data) {
                 userQuery.withGraphFetched('directions')
             }
 
@@ -25,7 +26,7 @@ module.exports = {
 
             return {
                 currentPage: page,
-                hasMorePages: (((page - 1) * perPage) + perPage) < total ,
+                hasMorePages: (((page - 1) * perPage) + perPage) < total,
                 data: results,
             };
 
@@ -43,4 +44,30 @@ module.exports = {
             return userQuery.findById(id);
         },
     },
+    Mutation: {
+        createEmployer: async (_, {input}) => {
+
+            const hash = await bcrypt.hash('password', 1);
+
+            input = {...input, password: hash};
+
+            const employer = await User.query().insert(input);
+
+            return {
+                success: true,
+                message: 'Сотрудник был создан',
+                employer
+            }
+        },
+        updateEmployer: async (_, {id, input}) => {
+
+            const employer = await User.query().updateAndFetchById(id, input);
+
+            return {
+                success: true,
+                message: 'Сотрудник был обновлен',
+                employer
+            }
+        }
+    }
 };
