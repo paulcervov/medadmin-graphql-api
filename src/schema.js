@@ -72,7 +72,7 @@ const typeDefs = gql`
         updateEmployer(id: ID!, input: EmployerInput!): EmployerMutationResponse
 
         # Delete an existing employer by id
-        deleteEmployer(id: ID!): Employer
+        deleteEmployer(id: ID!): EmployerMutationResponse
     }
 
     input EmployerInput {

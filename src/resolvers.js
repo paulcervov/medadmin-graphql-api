@@ -8,21 +8,21 @@ module.exports = {
 
             const fields = graphqlFields(info);
 
-            const userQuery = User.query()
+            const employerQuery = User.query()
                 .orderBy(column, direction);
 
             if (searchQuery) {
-                userQuery
+                employerQuery
                     .where('lastName', 'like', `%${searchQuery}%`)
                     .orWhere('firstName', 'like', `%${searchQuery}%`)
                     .orWhere('middleName', 'like', `%${searchQuery}%`);
             }
 
             if ('directions' in fields.data) {
-                userQuery.withGraphFetched('directions')
+                employerQuery.withGraphFetched('directions')
             }
 
-            const {results, total} = await userQuery.page(page - 1, perPage);
+            const {results, total} = await employerQuery.page(page - 1, perPage);
 
             return {
                 currentPage: page,
@@ -35,13 +35,13 @@ module.exports = {
 
             const fields = graphqlFields(info);
 
-            const userQuery = User.query();
+            const employerQuery = User.query();
 
             if ('directions' in fields) {
-                userQuery.withGraphFetched('directions');
+                employerQuery.withGraphFetched('directions');
             }
 
-            return userQuery.findById(id);
+            return employerQuery.findById(id);
         },
     },
     Mutation: {
@@ -69,20 +69,20 @@ module.exports = {
                 employer
             }
         },
-        deleteEmployer: async (_, {id}, context, info) => {
+        deleteEmployer: async (_, {id}) => {
 
             const now = new Date()
                 .toISOString()
                 .replace('T', ' ')
                 .slice(0, -5);
 
-            const userQuery = User.query();
+            const employer = await User.query().patchAndFetchById(id, {deletedAt: now});
 
-            const user = await userQuery.findById(id);
-
-            await userQuery.patch({deletedAt: now});
-
-            return user;
+            return {
+                success: true,
+                message: 'Сотрудник был удален',
+                employer
+            }
         },
     }
 };
