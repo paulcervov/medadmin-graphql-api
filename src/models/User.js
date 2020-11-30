@@ -1,11 +1,17 @@
 const path = require('path');
-const {Model} = require('objection');
+const BaseModel = require('./BaseModel');
 
-class User extends Model {
+class User extends BaseModel {
 
     static get tableName() {
         return 'users';
     }
+
+    static modifiers = {
+        withoutTrashed(query) {
+            query.whereNull('deletedAt');
+        },
+    };
 
     static get jsonSchema() {
         return {
@@ -109,4 +115,4 @@ class User extends Model {
     } // relationMappings
 }
 
-module.exports = User
+module.exports = User;

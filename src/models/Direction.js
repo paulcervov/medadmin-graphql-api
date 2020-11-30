@@ -1,7 +1,7 @@
 const path = require('path');
-const {Model} = require('objection');
+const BaseModel = require('./BaseModel');
 
-class Direction extends Model {
+class Direction extends BaseModel {
 
     static get tableName() {
         return 'directions';
