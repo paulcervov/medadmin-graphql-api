@@ -12,7 +12,11 @@ module.exports = {
                 .orderBy(column, direction);
 
             if(trashed === 'WITHOUT') {
-                employerQuery.whereNull('deletedAt');
+                employerQuery.modify('withoutTrashed');
+            }
+
+            if(trashed === 'ONLY') {
+                employerQuery.modify('onlyTrashed');
             }
 
             if (searchQuery) {

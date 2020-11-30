@@ -11,6 +11,9 @@ class User extends BaseModel {
         withoutTrashed(query) {
             query.whereNull('deletedAt');
         },
+        onlyTrashed(query) {
+            query.whereNotNull('deletedAt');
+        },
     };
 
     static get jsonSchema() {
