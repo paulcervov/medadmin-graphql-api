@@ -1,7 +1,8 @@
 const path = require('path');
-const BaseModel = require('./BaseModel');
 
-class User extends BaseModel {
+const Model = require('./BaseModel');
+
+class User extends Model {
 
     static get tableName() {
         return 'users';

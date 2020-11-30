@@ -92,5 +92,15 @@ module.exports = {
                 employer
             }
         },
+        restoreEmployer: async (_, {id}) => {
+
+            const employer = await User.query().patchAndFetchById(id, {deletedAt: null});
+
+            return {
+                success: true,
+                message: 'Сотрудник был восстановлен',
+                employer
+            }
+        },
     }
 };

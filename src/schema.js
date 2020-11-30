@@ -56,7 +56,7 @@ const typeDefs = gql`
         percentage: Int
         passport: Passport
         
-        directions: [Direction!]
+        directions: [Direction!]!
 
         deletedAt: String
         createdAt: String!
@@ -85,6 +85,9 @@ const typeDefs = gql`
 
         # Delete an existing employer by id
         deleteEmployer(id: ID!): EmployerMutationResponse
+
+        # Restore an existing employer by id
+        restoreEmployer(id: ID!): EmployerMutationResponse
     }
 
     input EmployerInput {
