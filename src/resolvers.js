@@ -4,12 +4,16 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     Query: {
-        findEmployers: async (_, {page, perPage, searchQuery, orderBy: {column, direction}}, context, info) => {
+        findEmployers: async (_, {page, perPage, searchQuery, orderBy: {column, direction}, trashed}, context, info) => {
 
             const fields = graphqlFields(info);
 
             const employerQuery = User.query()
                 .orderBy(column, direction);
+
+            if(trashed === 'WITHOUT') {
+                employerQuery.whereNull('deletedAt');
+            }
 
             if (searchQuery) {
                 employerQuery
