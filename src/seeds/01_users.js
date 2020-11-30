@@ -63,7 +63,7 @@ exports.seed = async (knex) => {
                 registrationAddress: JSON.stringify(registrationAddress),
                 physicalAddress: JSON.stringify(physicalAddress),
 
-                deletedAt: faker.random.boolean
+                deletedAt: faker.random.boolean()
                     ? faker.date.past().toISOString().replace('T', ' ').slice(0, -5)
                     : null,
                 createdAt: faker.date.past().toISOString().replace('T', ' ').slice(0, -5),
