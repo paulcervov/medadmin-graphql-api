@@ -1,5 +1,5 @@
 const path = require('path');
-const {Model} = require('objection');
+const Model = require('./BaseModel');
 
 class Service extends Model {
 

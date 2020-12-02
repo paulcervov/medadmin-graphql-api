@@ -2,9 +2,21 @@ const {gql} = require('apollo-server');
 
 const typeDefs = gql`
 
+    # Specify if you want to include or exclude trashed results from a query.
+    enum Trashed {
+        # Only return trashed results.
+        ONLY
+
+        # Return both trashed and non-trashed results.
+        WITH
+
+        # Only return non-trashed results.
+        WITHOUT
+    }
+
     type Query {
         "Geting list of employers"
-        findEmployers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput): EmployerPaginator!
+        findEmployers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput, trashed: Trashed = WITH): EmployerPaginator!
         "Geting one employer by id"
         getEmployer(id: ID!): Employer
     }
@@ -44,8 +56,9 @@ const typeDefs = gql`
         percentage: Int
         passport: Passport
         
-        directions: [Direction!]
-        
+        directions: [Direction!]!
+
+        deletedAt: String
         createdAt: String!
         updatedAt: String!
     }
@@ -69,6 +82,12 @@ const typeDefs = gql`
 
         # Update an existing employer by id
         updateEmployer(id: ID!, input: EmployerInput!): EmployerMutationResponse
+
+        # Delete an existing employer by id
+        deleteEmployer(id: ID!): EmployerMutationResponse
+
+        # Restore an existing employer by id
+        restoreEmployer(id: ID!): EmployerMutationResponse
     }
 
     input EmployerInput {
