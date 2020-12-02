@@ -102,5 +102,10 @@ module.exports = {
                 employer
             }
         },
+    },
+    MutationResponse: {
+        __resolveType() {
+            return null;
+        }
     }
 };
