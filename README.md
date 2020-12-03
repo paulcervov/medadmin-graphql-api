@@ -1,4 +1,4 @@
-# Medadmin API 2
+# Medadmin API
 Node.js-based GraphQL-API for Medadmin CRM.
 
 ## Initial project setup
