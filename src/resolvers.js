@@ -1,6 +1,7 @@
 const graphqlFields = require('graphql-fields');
 const User = require('./models/User');
 const bcrypt = require('bcrypt');
+const {ID_ROLE_DOCTOR} = require('./constants/User');
 
 module.exports = {
     Query: {
@@ -68,6 +69,10 @@ module.exports = {
             }
         },
         updateEmployer: async (_, {id, input}) => {
+
+            if(input.roleId === ID_ROLE_DOCTOR) {
+                input.percentage = null;
+            }
 
             const employer = await User.query().updateAndFetchById(id, input);
 

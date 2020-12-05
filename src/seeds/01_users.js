@@ -1,4 +1,5 @@
 const faker = require('../faker');
+const {GENDERS, ID_ROLE_DOCTOR, ROLES, PERCENTAGES} = require('../constants/User');
 
 exports.seed = async (knex) => {
 
@@ -9,9 +10,9 @@ exports.seed = async (knex) => {
         .map(() => {
 
             const
-                genderId = faker.random.number(1),
+                genderId = faker.random.arrayElement([...GENDERS.keys()]),
                 dateOfBirth = faker.date.between('1950', '2010').toISOString().split('T').shift(),
-                roleId = faker.random.number({min: 1, max: 5}),
+                roleId = faker.random.arrayElement([...ROLES.keys()]),
                 passport = faker.random.boolean()
                     ? {
                         series: faker.helpers.replaceSymbols('####'),
@@ -53,9 +54,9 @@ exports.seed = async (knex) => {
                 dateOfBirth: dateOfBirth,
                 roleId: roleId,
 
-                percentage: roleId === 3
-                    ? faker.random.arrayElement([0, 5, 10, 15, 20, 25])
-                    : 0,
+                percentage: roleId === ID_ROLE_DOCTOR
+                    ? faker.random.arrayElement(PERCENTAGES)
+                    : null,
                 comment: faker.random.boolean()
                     ? faker.lorem.sentence()
                     : null,
