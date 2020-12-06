@@ -70,7 +70,7 @@ module.exports = {
         },
         updateEmployer: async (_, {id, input}) => {
 
-            if(input.roleId === ID_ROLE_DOCTOR) {
+            if(input.roleId !== ID_ROLE_DOCTOR) {
                 input.percentage = null;
             }
 
