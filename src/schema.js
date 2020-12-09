@@ -16,15 +16,9 @@ const typeDefs = gql`
 
     type Query {
         "Geting list of employers"
-        findEmployers(page: Int = 1, perPage: Int = 5, searchQuery: String, orderBy: OrderByInput, trashed: Trashed = WITH): EmployerPaginator!
+        findEmployers(first: Int = 5, offset: Int, searchQuery: String, orderBy: OrderByInput, trashed: Trashed = WITH): [Employer]!
         "Geting one employer by id"
         getEmployer(id: ID!): Employer
-    }
-
-    type EmployerPaginator {
-        currentPage: Int!
-        hasMorePages: Boolean!
-        data: [Employer]!
     }
 
     # Order by clause for the \`orderBy\` argument on the query \`findEmployers\`.

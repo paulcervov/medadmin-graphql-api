@@ -5,7 +5,7 @@ const {ID_ROLE_DOCTOR} = require('./constants/User');
 
 module.exports = {
     Query: {
-        findEmployers: async (_, {page, perPage, searchQuery, orderBy: {column, direction}, trashed}, context, info) => {
+        findEmployers: async (_, {first, offset, searchQuery, orderBy: {column, direction}, trashed}, context, info) => {
 
             const fields = graphqlFields(info);
 
@@ -27,17 +27,11 @@ module.exports = {
                     .orWhere('middleName', 'like', `%${searchQuery}%`);
             }
 
-            if ('directions' in fields.data) {
+            if ('directions' in fields) {
                 employerQuery.withGraphFetched('directions')
             }
 
-            const {results, total} = await employerQuery.page(page - 1, perPage);
-
-            return {
-                currentPage: page,
-                hasMorePages: (((page - 1) * perPage) + perPage) < total,
-                data: results,
-            };
+            return employerQuery.limit(first).offset(offset);
 
         },
         getEmployer: (_, {id}, context, info) => {
