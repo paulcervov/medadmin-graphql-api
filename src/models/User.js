@@ -1,11 +1,15 @@
 const path = require('path');
 
-const Model = require('./BaseModel');
+const {Model, ValidationError} = require('objection');
 
 class User extends Model {
 
     static get tableName() {
         return 'users';
+    }
+
+    static get useLimitInFirst() {
+        return true;
     }
 
     static modifiers = {
@@ -16,6 +20,19 @@ class User extends Model {
             query.whereNotNull('deletedAt');
         },
     };
+
+    static async beforeInsert({asFindQuery, inputItems}) {
+
+        const [{count}] = await asFindQuery().whereIn('phone', inputItems.map(item => item.phone)).count('id', {as: 'count'});
+
+        if (count) {
+            throw new ValidationError({
+                data: {
+                    phone: 'Такое значение поля phone уже существует'
+                }
+            })
+        }
+    }
 
     static get jsonSchema() {
         return {
