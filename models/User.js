@@ -1,4 +1,5 @@
 const path = require('path');
+const {ROLES, GENDERS, PERCENTAGES} = require('./../constants/User')
 
 const {Model, ValidationError} = require('objection');
 
@@ -49,46 +50,48 @@ class User extends Model {
 
             properties: {
                 id: {type: 'integer'},
-                firstName: {type: 'string', minLength: 1, maxLength: 255},
-                middleName: {type: 'string', minLength: 1, maxLength: 255},
-                lastName: {type: 'string', minLength: 1, maxLength: 255},
-                phone: {type: 'string', minLength: 1, maxLength: 255},
-                password: {type: 'string', minLength: 1, maxLength: 255},
-                genderId: {type: 'number', minLength: 0, maxLength: 1},
-                dateOfBirth: {type: 'date'},
-                roleId: {type: 'number', minLength: 1, maxLength: 5},
+                firstName: {type: 'string', minLength: 1, maxLength: 50},
+                middleName: {type: 'string', minLength: 1, maxLength: 50},
+                lastName: {type: 'string', minLength: 1, maxLength: 50},
+                phone: {type: 'string', minLength: 16, maxLength: 16},
+                password: {type: 'string', minLength: 6, maxLength: 100},
+                genderId: {type: 'integer', minimum: 1, maximum: Math.max(...GENDERS.keys())},
+                dateOfBirth: {type: 'string', 'format': 'date'},
+                roleId: {type: 'integer', minimum: 1, maximum: Math.max(...ROLES.keys())},
 
-                percentage: {type: ['null', 'number'], minLength: 1, maxLength: 100},
+                percentage: {type: ['null', 'integer'], minimum: 1, maximum: Math.max(...PERCENTAGES)},
                 comment: {type: ['null', 'string'], minLength: 1, maxLength: 255},
                 passport: {
                     type: ['null', 'object'],
                     // consider improvements
                     properties: {
                         series: {type: 'string', minLength: 4, maxLength: 4},
-                        number: {type: 'number', minLength: 111111, maxLength: 999999},
-                        dateOfIssue: {type: 'date'},
+                        number: {type: 'integer', minimum: 111111, maximum: 999999},
+                        dateOfIssue: {type: 'string', format: 'date'},
                         issuedBy: {type: 'string', minLength: 1, maxLength: 255}
                     }
                 },
                 registrationAddress: {
                     type: ['null', 'object'],
                     properties: {
-                        city: {type: 'string'},
-                        street: {type: 'string'},
-                        house: {type: 'number'},
-                        building: {type: 'string'},
-                        apartment: {type: 'string'},
+                        region: {type: 'string', minLength: 1, maxLength: 255},
+                        district: {type: 'string', minLength: 1, maxLength: 255},
+                        city: {type: 'string', minLength: 1, maxLength: 50},
+                        street: {type: 'string', minLength: 1, maxLength: 100},
+                        building: {type: 'string', minLength: 1, maxLength: 100},
+                        apartment: {type: ['null', 'integer'], minimum: 1, maximum: 1000},
                         livesHere: {type: 'boolean'},
                     }
                 },
                 physicalAddress: {
                     type: ['null', 'object'],
                     properties: {
-                        city: {type: 'string'},
-                        street: {type: 'string'},
-                        house: {type: 'string'},
-                        building: {type: 'string'},
-                        apartment: {type: 'string'},
+                        region: {type: 'string', minLength: 1, maxLength: 255},
+                        district: {type: 'string', minLength: 1, maxLength: 255},
+                        city: {type: 'string', minLength: 1, maxLength: 50},
+                        street: {type: 'string', minLength: 1, maxLength: 100},
+                        building: {type: 'string', minLength: 1, maxLength: 100},
+                        apartment: {type: ['null', 'integer'], minimum: 1, maximum: 1000},
                     }
                 },
             }

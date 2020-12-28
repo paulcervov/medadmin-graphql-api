@@ -1,5 +1,5 @@
-const faker = require('../faker');
-const {GENDERS, ID_ROLE_DOCTOR, ROLES, PERCENTAGES} = require('../constants/User');
+const faker = require('./../faker');
+const {GENDERS, ID_ROLE_DOCTOR, ROLES, PERCENTAGES} = require('./../constants/User');
 
 exports.seed = async (knex) => {
 
@@ -22,11 +22,12 @@ exports.seed = async (knex) => {
                     } : null,
                 registrationAddress = faker.random.boolean()
                     ? {
+                        region: faker.address.state(),
+                        direction: faker.address.county(),
                         city: faker.address.city(),
                         street: faker.address.streetName(),
-                        house: faker.random.number({min: 1, max: 150}),
-                        building: faker.random.boolean() ? faker.random.number({min: 1, max: 10}) : null,
-                        apartment: faker.random.boolean() ? faker.random.number({min: 1, max: 100}) : null,
+                        building: `${faker.random.number({min: 1, max: 500})} корпус ${faker.random.number({min: 1, max: 100})}`,
+                        apartment: faker.random.boolean() ? faker.random.number({min: 1, max: 1000}) : null,
                         livesHere: faker.random.boolean()
                     }
                     : null,
@@ -34,11 +35,12 @@ exports.seed = async (knex) => {
                     ? null
                     : faker.random.boolean()
                         ? {
+                            region: faker.address.state(),
+                            direction: faker.address.county(),
                             city: faker.address.city(),
                             street: faker.address.streetName(),
-                            house: faker.random.number({min: 1, max: 150}),
-                            building: faker.random.boolean() ? faker.random.number({min: 1, max: 10}) : null,
-                            apartment: faker.random.boolean() ? faker.random.number({min: 1, max: 100}) : null
+                            building: `${faker.random.number({min: 1, max: 500})} корпус ${faker.random.number({min: 1, max: 100})}`,
+                            apartment: faker.random.boolean() ? faker.random.number({min: 1, max: 1000}) : null
                         }
                         : null;
 
@@ -47,7 +49,7 @@ exports.seed = async (knex) => {
                 middleName: faker.name.middleName(genderId),
                 lastName: faker.name.lastName(genderId),
 
-                phone: faker.unique(faker.phone.phoneNumber),
+                phone: `+${faker.random.number({min: 1, max: 9})}${faker.unique(faker.phone.phoneNumber)}`,
                 password: '$2b$04$toP1b1dhS0dtpPicQsWjjeOwzl3pvPAfgHDHMT.FXUDy2fuCd4u86', // password,
 
                 genderId: genderId,

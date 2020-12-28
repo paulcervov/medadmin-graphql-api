@@ -1,7 +1,7 @@
 const graphqlFields = require('graphql-fields');
-const User = require('./models/User');
+const User = require('./../models/User');
 const bcrypt = require('bcrypt');
-const {ID_ROLE_DOCTOR} = require('./constants/User');
+const {ID_ROLE_DOCTOR} = require('./../constants/User');
 
 module.exports = {
     Query: {

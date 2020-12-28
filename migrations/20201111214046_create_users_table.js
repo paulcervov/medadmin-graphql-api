@@ -4,18 +4,18 @@ exports.up = function(knex) {
     return knex.schema.createTable('users', function (table) {
         table.increments();
 
-        table.string('firstName').notNullable();
-        table.string('middleName').notNullable();
-        table.string('lastName').notNullable();
+        table.string('firstName', 50).notNullable();
+        table.string('middleName', 50).notNullable();
+        table.string('lastName', 50).notNullable();
 
-        table.string('phone').notNullable().unique();
-        table.string('password').notNullable();
+        table.string('phone', 16).notNullable().unique('usersPhoneUnique');
+        table.string('password', 100).notNullable();
 
-        table.integer('genderId').notNullable();
+        table.integer('genderId').unsigned().notNullable();
         table.date('dateOfBirth').notNullable();
-        table.integer('roleId').notNullable();
+        table.integer('roleId').unsigned().notNullable();
 
-        table.integer('percentage');
+        table.integer('percentage').unsigned();
         table.string('comment');
         table.json('passport');
         table.json('registrationAddress');

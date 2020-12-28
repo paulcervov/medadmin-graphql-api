@@ -5,7 +5,10 @@ exports.up = function(knex) {
         table.increments();
 
         table.integer('directionId')
-            .notNullable()
+            .unsigned()
+            .notNullable();
+
+        table.foreign('directionId', 'directionablesDirectionIdForeign')
             .references('id')
             .inTable('directions')
             .onDelete('cascade');
@@ -13,8 +16,7 @@ exports.up = function(knex) {
         table.string('directionableType').notNullable();
         table.integer('directionableId').notNullable().unsigned();
 
-        table.unique(['directionId', 'directionableType', 'directionableId']);
-        table.index(['directionableType', 'directionableId']);
+        table.unique(['directionId', 'directionableType', 'directionableId'], 'directionablesDirectionIdDirectionableTypeDirectionableIdUnique');
 
         table.timestamp('createdAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updatedAt', {useTz: false}).defaultTo(knex.fn.now()).notNullable();
