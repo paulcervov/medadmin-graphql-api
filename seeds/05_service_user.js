@@ -3,13 +3,13 @@ exports.seed = async (knex) => {
 
     await knex('serviceUser').del();
 
-    const services = await knex('services').orderByRaw('RAND()');
+    const services = await knex('services').orderByRaw('RANDOM()');
 
     const [{userCount}] = await knex('users').count('id', {as: 'userCount'});
 
     const promises = services.map(async (service) => {
 
-        const users = await knex('users').orderByRaw('RAND()').limit(userCount / 20);
+        const users = await knex('users').orderByRaw('RANDOM()').limit(userCount / 20);
 
         const values = users.map((user) => {
 
