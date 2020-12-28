@@ -3,8 +3,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-*.sqlite
-*.sqlite-journal
+/db
 
 .DS_Store
 .env
