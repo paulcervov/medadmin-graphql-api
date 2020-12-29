@@ -18,3 +18,14 @@ Rollbacks and reruns all migrations, then runs all seeders.
 
 Runs the app in the development mode.<br />
 Open [http://localhost:4000/graphql](http://localhost:4000/graphql) to view it in the browser.
+
+## Run database with Docker
+```
+docker run \
+    --name db.medadmin --rm \
+    -dp 5432:5432 \
+    -v $(pwd)/db/data:/var/lib/postgresql/data \
+    -e POSTGRES_PASSWORD=secret \
+    postgres:alpine
+```
+
