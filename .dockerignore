@@ -1,0 +1,15 @@
+*
+!bin
+!constants
+!db
+!migration
+!models
+!resolvers
+!schema
+!seeds
+!faker.js
+!index.js
+!knexfile.js
+!knex.js
+!package.json
+!package-lock.json

@@ -1,32 +1,30 @@
 # Medadmin API
-Node.js-based GraphQL-API for [Medadmin CRM](https://github.com/paulcervov/crm.medadmin).
 
-## Initial project setup
+Node.js-based GraphQL-API for [Medadmin CRM](https://github.com/paulcervov/medadmin-crm).
 
-1. Clone the repository and go to the project directory.
-2. Set up your PostgreSQL database connection.
-3. Copy `.env.example` file into `.env` and fill it.
+## Setup project:
+1. Run `npm i` command
+1. Run `cp .env.example .env`
+1. Setup database connection
+1. Change the `*.env` files as you want
 
-## Available Scripts
-In the project directory, you can run:
+Optional: with Docker you can start the database in a container
+with just one command: `docker-compose up -d`.
 
-### `npm fresh`
+## Run local:
+Run `npm run dev` command, then go to `http://localhost:4000`  
+and work in a graphql playground.
 
-Rollbacks and reruns all migrations, then runs all seeders.
+Optional: you can run `./bin/db/fresh.db` command  
+to rollback and re-run all migrations and seeders.
 
-### `npm start`
+## Build for production
 
-Runs the app in the development mode.<br />
-Open [http://localhost:4000/graphql](http://localhost:4000/graphql) to view it in the browser.
+Run `docker build -t paulcervov/medadmin-api .` for build docker image. 
 
-## Run database with Docker
-You can easily and quickly run a database in a Docker container with just one command:
-```
-docker run \
-    --name db.medadmin --rm \
-    -dp 5432:5432 \
-    -v $(pwd)/db/data:/var/lib/postgresql/data \
-    -e POSTGRES_PASSWORD=secret \
-    postgres:alpine
-```
-Database data will be saved in `db` directory.
+
+## Run in production
+
+Run `docker-compose up -d` for running app and database in containers.  
+Also, you can run `docker-compose logs -f` to view container logs.  
+To stop all containers run `docker-compose down`.

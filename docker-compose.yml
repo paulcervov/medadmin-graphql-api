@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  api:
+    image: paulcervov/medadmin-api
+    ports:
+      - 4000:4000
+    environment:
+      DB_HOST: db
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+  db:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
