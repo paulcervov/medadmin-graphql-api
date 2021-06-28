@@ -1,6 +1,6 @@
 # Medadmin API
 
-Node.js-based GraphQL-API for [Medadmin CRM](https://github.com/paulcervov/medadmin-crm).
+Node.js-based GraphQL-API for [Medadmin CRM](https://github.com/paulcervov/medadmin-graphql-crm).
 
 ## Setup project:
 1. Run `npm i` command
